@@ -64,7 +64,12 @@
                             }
                         ],
                         "roleArn": "arn:aws:iam::751861124825:role/CodePipelineStarterTemplate-Pus-CodeBuildActionRole-PbezwLRC1WDg"
-                    },
+                    }
+                ]
+            },
+            {
+                "name": "DeployToECS",
+                "actions": [
                     {
                         "name": "Deploy",
                         "actionTypeId": {
@@ -73,7 +78,7 @@
                             "provider": "CodeDeployToECS",
                             "version": "1"
                         },
-                        "runOrder": 2,
+                        "runOrder": 1,
                         "configuration": {
                             "AppSpecTemplateArtifact": "SourceOutput",
                             "ApplicationName": "prod-bg",
