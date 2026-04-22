@@ -4,7 +4,11 @@
         "roleArn": "arn:aws:iam::751861124825:role/CodePipelineStarterTemplate-PushTo-CodePipelineRole-lL0FnmKOKCRu",
         "artifactStore": {
             "type": "S3",
-            "location": "codepipelinestartertempla-codepipelineartifactsbuc-xeeaodauqngl"
+            "location": "codepipelinestartertempla-codepipelineartifactsbuc-xeeaodauqngl",
+            "encryptionKey": {
+      "id": "arn:aws:kms:us-east-1:751861124825:key/80a1ca6b-a4ab-4985-9997-8c869c27ea71",
+      "type": "KMS"
+    }
         },
         "stages": [
             {
@@ -71,19 +75,19 @@
                         },
                         "runOrder": 2,
                         "configuration": {
-                            "appSpecTemplateArtifact": "SourceArtifact",
-                            "applicationName": "prod-bg",
-                            "deploymentGroupName": "test",
-                            "taskDefinitionTemplatePath": "taskdef.json",
-                            "appSpecTemplatePath": "appspec.yaml",
-                            "taskDefinitionTemplateArtifact": "SourceArtifact",
-                            "image1ContainerName": "IMAGE1_NAME",
-                            "image1ArtifactName": "buildOutput"
+                            "AppSpecTemplateArtifact": "SourceArtifact",
+                            "ApplicationName": "prod-bg",
+                            "DeploymentGroupName": "test",
+                            "TaskDefinitionTemplatePath": "taskdef.json",
+                            "AppSpecTemplatePath": "appspec.yaml",
+                            "TaskDefinitionTemplateArtifact": "SourceArtifact",
+                            "Image1ContainerName": "IMAGE1_NAME",
+                            "Image1ArtifactName": "buildOutput"
                         },
                         "outputArtifacts": [],
                         "inputArtifacts": [
                             {
-                                "name": "SourceArtifact"
+                                "name": "SourceOutput"
                             },
                             {
                                 "name": "buildOutput"
