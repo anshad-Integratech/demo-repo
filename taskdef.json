@@ -1,7 +1,5 @@
 
 
-
-
 {
     "taskDefinitionArn": "arn:aws:ecs:us-east-1:302703039053:task-definition/nginx-test-task:1",
     "containerDefinitions": [
