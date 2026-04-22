@@ -75,12 +75,12 @@
                         },
                         "runOrder": 2,
                         "configuration": {
-                            "AppSpecTemplateArtifact": "SourceArtifact",
+                            "AppSpecTemplateArtifact": "SourceOutput",
                             "ApplicationName": "prod-bg",
                             "DeploymentGroupName": "test",
                             "TaskDefinitionTemplatePath": "taskdef.json",
                             "AppSpecTemplatePath": "appspec.yaml",
-                            "TaskDefinitionTemplateArtifact": "SourceArtifact",
+                            "TaskDefinitionTemplateArtifact": "SourceOutput",
                             "Image1ContainerName": "IMAGE1_NAME",
                             "Image1ArtifactName": "buildOutput"
                         },
