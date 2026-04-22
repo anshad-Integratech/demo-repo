@@ -1,0 +1,120 @@
+{
+    "pipeline": {
+        "name": "SimpleDockerService",
+        "roleArn": "arn:aws:iam::751861124825:role/CodePipelineStarterTemplate-PushTo-CodePipelineRole-lL0FnmKOKCRu",
+        "artifactStore": {
+            "type": "S3",
+            "location": "codepipelinestartertempla-codepipelineartifactsbuc-xeeaodauqngl"
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name": "CodeConnections",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "AWS",
+                            "provider": "CodeStarSourceConnection",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "BranchName": "main",
+                            "ConnectionArn": "arn:aws:codeconnections:us-east-1:751861124825:connection/08c9f6a9-9b98-42ee-b57b-8ac0c87388de",
+                            "FullRepositoryId": "anshad-Integratech/demo-repo"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceOutput"
+                            }
+                        ],
+                        "inputArtifacts": [],
+                        "roleArn": "arn:aws:iam::751861124825:role/CodePipelineStarterTempla-CodeConnectionsActionRole-TOxZ2pqeEL3S"
+                    }
+                ]
+            },
+            {
+                "name": "Build_and_Deploy",
+                "actions": [
+                    {
+                        "name": "Docker_Build_Tag_and_Push",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "ProjectName": "SimpleDockerProject-0e61884c7a1f"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "buildOutput"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceOutput"
+                            }
+                        ],
+                        "roleArn": "arn:aws:iam::751861124825:role/CodePipelineStarterTemplate-Pus-CodeBuildActionRole-PbezwLRC1WDg"
+                    },
+                    {
+                        "name": "Deploy",
+                        "actionTypeId": {
+                            "category": "Deploy",
+                            "owner": "AWS",
+                            "provider": "CodeDeployToECS",
+                            "version": "1"
+                        },
+                        "runOrder": 2,
+                        "configuration": {
+                            "appSpecTemplateArtifact": "SourceArtifact",
+                            "applicationName": "prod-bg",
+                            "deploymentGroupName": "test",
+                            "taskDefinitionTemplatePath": "taskdef.json",
+                            "appSpecTemplatePath": "appspec.yaml",
+                            "taskDefinitionTemplateArtifact": "SourceArtifact",
+                            "image1ContainerName": "IMAGE1_NAME",
+                            "image1ArtifactName": "buildOutput"
+                        },
+                        "outputArtifacts": [],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            },
+                            {
+                                "name": "buildOutput"
+                            }
+                        ],
+                        "roleArn": "arn:aws:iam::302703039053:role/prod-pipeline-cross-account-role-virginia",
+                        "region": "us-east-1",
+                        "namespace": "DeployVariables"
+                    }
+                ]
+            }
+        ],
+        "version": 1,
+        "executionMode": "QUEUED",
+        "pipelineType": "V2",
+        "triggers": [
+            {
+                "providerType": "CodeStarSourceConnection",
+                "gitConfiguration": {
+                    "sourceActionName": "CodeConnections",
+                    "push": [
+                        {
+                            "branches": {
+                                "includes": [
+                                    "main"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
